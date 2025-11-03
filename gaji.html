@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='style.css'>
+    <title>Percobaan</title>
+</head>
+<body>
+    <h1>INI ADALAH TUGAS TENTANG GAJI KARYAWAN</h1>
+    <h3>BY ABDURRAFI FIRLAN PUTRA</h3>
+    <br>
+
+    <label for='nama'>Masukkan Nama Karyawan:<br></label>
+    <input type='text' id='nama'><br>
+
+    <label for='gaji_pokok'>Masukkan Gaji Pokok Karyawan:<br></label>
+    <input type='number' id='gaji_pokok'><br>
+
+    <button onclick='hitungGaji()'>Hitung Gaji Bersih</button>
+
+    <div id='hasil'></div>
+
+    <script>
+        function formatRupiah(angka) {
+            return 'Rp. ' + angka.toLocaleString('id-ID');
+        }
+
+        function hitungGaji() {
+            let nama = document.getElementById('nama').value;
+            let gaji_pokok = document.getElementById('gaji_pokok').value;
+
+            if (gaji_pokok === '' | nama === '') {
+                document.getElementById('hasil').innerHTML = 
+                    '<p style="color: #ff8080;">⚠️ Harap isi semua field yang diperlukan.</>';
+                return;
+            }
+
+            gaji_pokok = parseFloat(gaji_pokok);
+            let tunjangan = gaji_pokok * 0.2;
+            let pajak = (gaji_pokok + tunjangan) * 0.15;
+            let gaji_bersih = gaji_pokok + tunjangan - pajak;
+
+            document.getElementById('hasil').innerHTML = `
+                <p><strong>Nama Karyawan:</strong> ${nama}</p>
+                <p>Tunjangan: ${formatRupiah(tunjangan)}</p>
+                <p>Pajak: ${formatRupiah(pajak)}</p>
+                <p><strong>Gaji Bersih:</strong> ${formatRupiah(gaji_bersih)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
